@@ -32,6 +32,7 @@ def v1():
 def v2():
     face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     eye_cascade = cv2.CascadeClassifier('haarcascade_eye.xml')
+    smile_cascade = cv2.CascadeClassifier('haarcascade_smile.xml')
     cap = cv2.VideoCapture(0)
 
     while True:
@@ -54,6 +55,12 @@ def v2():
                 etext = 'eyes'
                 cv2.putText(roi_color, etext, (ex, ey-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
 
+            smiles = smile_cascade.detectMultiScale(roi_gray, 1.8, 20)
+            for (sx, sy, sw, sh) in smiles:
+                cv2.rectangle(roi_color, (sx, sy), ((sx + sw), (sy + sh)), (0, 0, 255), 2)
+                stext = 'smile'
+                cv2.putText(roi_color, stext, (sx, sy - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+
         cv2.imshow('Face Capture', img)
         k = cv2.waitKey(30) & 0xff
         if k == 27:
@@ -63,7 +70,7 @@ def v2():
     cv2.destroyAllWindows()
 
 
-decision = input('1 or 2\n')
+decision = input('<1>(basic) or <2>(developed)\n')
 if decision == '1':
     v1()
 elif decision == '2':
