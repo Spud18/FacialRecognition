@@ -70,7 +70,7 @@ def v2():
     cv2.destroyAllWindows()
 
 
-decide = False  # debug for testing
+decide = False  # debug for testing // ignore
 if decide:
     decision = input('<1>(basic) or <2>(developed)\n')
     if decision == '1':
