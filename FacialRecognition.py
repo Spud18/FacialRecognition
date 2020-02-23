@@ -21,12 +21,12 @@ def v1():
         )
 
         for (x, y, w, h) in faces:
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (50, 50, 200), 2)
+            cv2.rectangle(frame, (x, y), (x + w, y + h), (50, 50, 200), 2)
 
         cv2.imshow('Face Capture', frame)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
-           sys.exit()
+            sys.exit()
 
 
 def v2():
@@ -44,7 +44,7 @@ def v2():
 
             cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)
             text = 'face'
-            cv2.putText(img, text, (x, y-5), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
+            cv2.putText(img, text, (x, y - 5), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
 
             roi_gray = gray[y:y + h, x:x + w]
             roi_color = img[y:y + h, x:x + w]
@@ -53,7 +53,7 @@ def v2():
             for (ex, ey, ew, eh) in eyes:
                 cv2.rectangle(roi_color, (ex, ey), (ex + ew, ey + eh), (0, 255, 0), 2)
                 etext = 'eyes'
-                cv2.putText(roi_color, etext, (ex, ey-5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
+                cv2.putText(roi_color, etext, (ex, ey - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 1)
 
             smiles = smile_cascade.detectMultiScale(roi_gray, 1.8, 20)
             for (sx, sy, sw, sh) in smiles:
@@ -70,8 +70,12 @@ def v2():
     cv2.destroyAllWindows()
 
 
-decision = input('<1>(basic) or <2>(developed)\n')
-if decision == '1':
-    v1()
-elif decision == '2':
+decide = False  # debug for testing
+if decide:
+    decision = input('<1>(basic) or <2>(developed)\n')
+    if decision == '1':
+        v1()
+    elif decision == '2':
+        v2()
+else:
     v2()
